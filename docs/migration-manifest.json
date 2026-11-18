@@ -1,0 +1,477 @@
+[
+  {
+    "component": "finassist",
+    "file": "__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "api/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "api/app.py",
+    "sha256": "bf20b3d2c5855dbb86a9d15910f94f0a3541a0811d69ce8b0678c4cc2c1815ce"
+  },
+  {
+    "component": "finassist",
+    "file": "api/chat_router.py",
+    "sha256": "8f5a4858f5cc76b39090dad3b4116d5144c485e923eb74f9a319419fde6bd77c"
+  },
+  {
+    "component": "finassist",
+    "file": "api/dependencies.py",
+    "sha256": "4a278532585067413519e0f0ebf844a7380ddbbcf9f0e192febf631adb3f180f"
+  },
+  {
+    "component": "finassist",
+    "file": "api/schemas.py",
+    "sha256": "57f885f68c451cece64a7c810b8e1856879bdf3af8e0231e67b919a84f71700f"
+  },
+  {
+    "component": "finassist",
+    "file": "chitchat/__init__.py",
+    "sha256": "1da2a49867efe3f72595bb45eb1ade1162977d38ef974318e69f7e3602a6c495"
+  },
+  {
+    "component": "finassist",
+    "file": "chitchat/chit_chat.py",
+    "sha256": "1984bde7ee382cf4d9c2703650fe8b55d1897cbed51a6e085cc6f5c190234060"
+  },
+  {
+    "component": "finassist",
+    "file": "clarify/__init__.py",
+    "sha256": "0ae23bb4ec67a9393d15e8257539774b6cb7739e5384401f4d258c810c9911e4"
+  },
+  {
+    "component": "finassist",
+    "file": "clarify/clarify_response.py",
+    "sha256": "46be6ce1b73cf74fb2e04243e25f358d7b0a979cb28cd3b625afbd23f4c6fe95"
+  },
+  {
+    "component": "finassist",
+    "file": "conf/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "conf/config.py",
+    "sha256": "27d2c22a57699c2b7a6ae52229e69ba1d41f5e2263369c6f050e03794798d444"
+  },
+  {
+    "component": "finassist",
+    "file": "domain/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "domain/message.py",
+    "sha256": "bc7ebe54fcffecb5de0aa33e5a7a0234e337c33693146a5872866b403ce67975"
+  },
+  {
+    "component": "finassist",
+    "file": "domain/state.py",
+    "sha256": "86511bd9ad31ad475a5a77ae2c599920980eab04cdd86df176f5a9d8776f89cd"
+  },
+  {
+    "component": "finassist",
+    "file": "engine/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "engine/builder.py",
+    "sha256": "57a987d40063295db7aad2a457cd7763d313ffd960f981a62bdca667a6221292"
+  },
+  {
+    "component": "finassist",
+    "file": "engine/dialogue_engine.py",
+    "sha256": "80655b6702ea3578d40b8e60a9ac77b76e7c50d234e76e846612d1dd87e02863"
+  },
+  {
+    "component": "finassist",
+    "file": "knowledge/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "knowledge/intents.py",
+    "sha256": "ad1038ff13aeb3368cf2af3e5388d6d5a45a6c76b12d096d63f6dbc453ad4348"
+  },
+  {
+    "component": "finassist",
+    "file": "knowledge/knowledge_handler.py",
+    "sha256": "ca31ddcda1c0c3d1e4b0f8ebd00963f96cd462408a879fbe09215d33704d0b01"
+  },
+  {
+    "component": "finassist",
+    "file": "knowledge/provider.py",
+    "sha256": "45695ce9c5f6fe07971d2c4a395f8722bdd572118bf977b5a37583ef66389331"
+  },
+  {
+    "component": "finassist",
+    "file": "knowledge/registry.py",
+    "sha256": "bd0e6ab89ae46b36ecf4ce8386c97c8fabeae218d32658f6e6e594acac3d7208"
+  },
+  {
+    "component": "finassist",
+    "file": "knowledge/responder.py",
+    "sha256": "d1109fbd43dedea47b4801ba1b87c8b0fc4830c97099e0ccda49c408571c2b30"
+  },
+  {
+    "component": "finassist",
+    "file": "lifecycle/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "lifecycle/models.py",
+    "sha256": "7cd82b740ad78867b1efca0ee003e53f6c8ef6891eb1ace46207e277fd6b1e8b"
+  },
+  {
+    "component": "finassist",
+    "file": "main.py",
+    "sha256": "bbcd42c74125b9d4cf49d6cf35e3678193856858eadea601974e00512555c5f3"
+  },
+  {
+    "component": "finassist",
+    "file": "plan/__init__.py",
+    "sha256": "e5ad683f26675f529823ac88389fdd6433b19188f2adc620e6f5d684f202e6bd"
+  },
+  {
+    "component": "finassist",
+    "file": "plan/command.py",
+    "sha256": "5a5a21ba02e7c568742ee4fa4c84bbe347e7ab423ac7c67245607919696e9887"
+  },
+  {
+    "component": "finassist",
+    "file": "plan/turn_plan_validator.py",
+    "sha256": "cb4b7f1b3612170c59d3400122e872871a372e1c3e24bafcdb3bd1d866f7a8e8"
+  },
+  {
+    "component": "finassist",
+    "file": "plan/turn_planner.py",
+    "sha256": "25beaa681ec78263ce81e88e89f0ef33f12d0eb055203017e84136f3828f014b"
+  },
+  {
+    "component": "finassist",
+    "file": "prompts/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "prompts/history_builder.py",
+    "sha256": "d0e4217bdfcd92d30786bdb18e0c47ee34b8f5b2f047b1e49ac043facbdc4dec"
+  },
+  {
+    "component": "finassist",
+    "file": "prompts/jinja2/chitchat_respond.jinja2",
+    "sha256": "700971d4fb75a5bfca020a3e24ff64788a2910ef6b750abc6c3667bc2f7154bf"
+  },
+  {
+    "component": "finassist",
+    "file": "prompts/jinja2/clarify_respond.jinja2",
+    "sha256": "27eeb9cfacfa4f8b5ec22e4a4720552ef4d168ab848072a626581c261f8e959b"
+  },
+  {
+    "component": "finassist",
+    "file": "prompts/jinja2/knowledge_respond.jinja2",
+    "sha256": "3acb9af4828083c444e0b0a2ff0847f4f4480cd2c2a725972a9dda871810fed7"
+  },
+  {
+    "component": "finassist",
+    "file": "prompts/jinja2/turn_plan.jinja2",
+    "sha256": "b64527539cf935e57086d731060ca5f9ee690fe2dbe33caba26101e75be3a3a8"
+  },
+  {
+    "component": "finassist",
+    "file": "prompts/loader.py",
+    "sha256": "8048882e74c71b07984de92cb8376dcc6fb4ffc2b076860f61ae228efb9d31dd"
+  },
+  {
+    "component": "finassist",
+    "file": "prompts/models.py",
+    "sha256": "a55d4356c06f86d38ee81873bf406f014ef7a08ed23ec626b1e0f5754e2fe5a5"
+  },
+  {
+    "component": "finassist",
+    "file": "repository/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "repository/dialogue_repository.py",
+    "sha256": "dd19aebf110e93684737260eeab3bf53ab05cdcf6dd6b880a9d3a0aa1d0c330b"
+  },
+  {
+    "component": "finassist",
+    "file": "repository/orm/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "repository/orm/base.py",
+    "sha256": "a09825bf357f922ef6c4083060b6572368866138e60f46403c0b83cacc4805fc"
+  },
+  {
+    "component": "finassist",
+    "file": "repository/orm/dialogue_state.py",
+    "sha256": "9a34f1467fd0a4d253fb81261c3455a216dc1c3436551eb82c7478d9d1a4f2d2"
+  },
+  {
+    "component": "finassist",
+    "file": "service/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "service/dialogue_service.py",
+    "sha256": "4ed6d51c9a72c5a87f3760e628ede4fdb994b62d94b1d53f8f4f6ee50fed692c"
+  },
+  {
+    "component": "finassist",
+    "file": "task/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "task/action/__init__.py",
+    "sha256": "a62ac5c83730e22919ff20abd41085636cece364e1a636a211d074ee77f024ba"
+  },
+  {
+    "component": "finassist",
+    "file": "task/action/action_runner.py",
+    "sha256": "a3b21c5f3fdf827c366057cdf1745c07b765c8a25731b45009271ce09b21dd8e"
+  },
+  {
+    "component": "finassist",
+    "file": "task/action/base.py",
+    "sha256": "7e511aedd7cad2c7a8134c04457b48b137b73b24305e06a4d74b25454829ee80"
+  },
+  {
+    "component": "finassist",
+    "file": "task/action/builder.py",
+    "sha256": "94c8a94352e6b38b4bd32f09a25c3c14620a3b34eab38bf06023bf820d99c0e5"
+  },
+  {
+    "component": "finassist",
+    "file": "task/action/custom/__init__.py",
+    "sha256": "a62ac5c83730e22919ff20abd41085636cece364e1a636a211d074ee77f024ba"
+  },
+  {
+    "component": "finassist",
+    "file": "task/action/custom/logistics_tracking.py",
+    "sha256": "e9de36124614f256d145f60e2fa109bdcff44085890ebf9fd20fc714594dc1a4"
+  },
+  {
+    "component": "finassist",
+    "file": "task/action/custom/order_status_query.py",
+    "sha256": "d5eebdbc399679d231268e90d018e11eeaccca8da302676a2d3fa3956ffeb9e8"
+  },
+  {
+    "component": "finassist",
+    "file": "task/action/custom/recommend.py",
+    "sha256": "2730312b3cf53df28397e57348c7436324ae332a35d373ca8d882b5545f36fa5"
+  },
+  {
+    "component": "finassist",
+    "file": "task/action/registry.py",
+    "sha256": "fdf3d04356b2e45c56b860e6a3d8450533f69e63ce0aa3f1bd7dd6e3fe1d246d"
+  },
+  {
+    "component": "finassist",
+    "file": "task/command/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "task/command/command_processor.py",
+    "sha256": "02ff99368bf9139e8fdb35f49e01326c3107075d7c13876f06c8cd9706e420a4"
+  },
+  {
+    "component": "finassist",
+    "file": "task/flow/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "task/flow/links.py",
+    "sha256": "0e017f927cbb52fb2117a5a4109dcf2347478be3cbc0e11222b1a2d43c43e24b"
+  },
+  {
+    "component": "finassist",
+    "file": "task/flow/loader.py",
+    "sha256": "413b292a231c6382f7004ab00e469020895c785437f23d5b31f20dd6c1758987"
+  },
+  {
+    "component": "finassist",
+    "file": "task/flow/models.py",
+    "sha256": "9def6ed8fc122ea8c32986d57ed9f6394d700f3970f9d5bb50b82f18aa7c3f33"
+  },
+  {
+    "component": "finassist",
+    "file": "task/flow/steps.py",
+    "sha256": "a16091e5303cb827560d5707777496f2999e07058b4f2de5b41adcab5d542794"
+  },
+  {
+    "component": "finassist",
+    "file": "task/flowexecutor/__init__.py",
+    "sha256": "3d59e9532d3f2e5c65436b79428be206e1092cc84b7f8cddfcf73a5ef5e249fc"
+  },
+  {
+    "component": "finassist",
+    "file": "task/flowexecutor/flow_executor.py",
+    "sha256": "f1ce14fa532b8209f82d9cbdb40362ed25b446ff232388168889d080068957ec"
+  },
+  {
+    "component": "finassist",
+    "file": "task/response/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "task/response/models.py",
+    "sha256": "214c724bc16a0db3ffcbef6464cd3ad1f6292babeec29e84760176b7e41fdbc4"
+  },
+  {
+    "component": "finassist",
+    "file": "task/response/response_render.py",
+    "sha256": "86b54e08287afcabb033caa75e6828f08a82d78bd22ada245af10df10ba829db"
+  },
+  {
+    "component": "finassist",
+    "file": "task/task_handler.py",
+    "sha256": "4ba8ed14ca5f81436c090c3aed10b6bbe438ec870074d84117a801b2741abfb1"
+  },
+  {
+    "component": "finassist",
+    "file": "task/tasklifecycle/__init__.py",
+    "sha256": "3d59e9532d3f2e5c65436b79428be206e1092cc84b7f8cddfcf73a5ef5e249fc"
+  },
+  {
+    "component": "finassist",
+    "file": "task/tasklifecycle/task_lifecycle.py",
+    "sha256": "e14c1bd4d0c7bee989cd8a8212fb2dfb878e664da067dfc04a918812d04fbd46"
+  },
+  {
+    "component": "finassist",
+    "file": "utils/__init__.py",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "component": "finassist",
+    "file": "utils/db.py",
+    "sha256": "df79240616a4111f63b777d4c35dda18ddf3e17962df5981fe7b133eebc7d3ee"
+  },
+  {
+    "component": "finassist",
+    "file": "utils/httpx_client.py",
+    "sha256": "d7f9c00e5e00d014e32301edee318ebfec19d97cc5b82008caa8377ab6834753"
+  },
+  {
+    "component": "finassist",
+    "file": "utils/llm.py",
+    "sha256": "52a031845c51c655198285f57b43ac31965be294f26e02892163172b2a46b5f5"
+  },
+  {
+    "component": "flow_config",
+    "file": "user_flows.yml",
+    "sha256": "31288f6d765691f2016f1c8963b18f9bf4e91001dde81379d627966d5206c07d"
+  },
+  {
+    "component": "finassist-web",
+    "file": "index.html",
+    "sha256": "2064ee5f241893c4791799d1a8d4c7e82f9bab22d901291351614ecc82351782"
+  },
+  {
+    "component": "finassist-web",
+    "file": "package-lock.json",
+    "sha256": "f761d44815e3606242d3d6291739d2cbdda978d7e64d9c30e85407c6272dc59f"
+  },
+  {
+    "component": "finassist-web",
+    "file": "package.json",
+    "sha256": "46d7a704c58b9c6212e77f1129b44d16bb82fd7957b6b534f9311ffbad491a70"
+  },
+  {
+    "component": "finassist-web",
+    "file": "src/App.vue",
+    "sha256": "2011104d74e9b391c98b1208496dcfb67424fe4b7c5402964945756b31fa6086"
+  },
+  {
+    "component": "finassist-web",
+    "file": "src/assets/logo.webp",
+    "sha256": "d95bd0fa160e41439ea1b45d0206ce586af2ab74e5facb6e40dacc325e604eaa"
+  },
+  {
+    "component": "finassist-web",
+    "file": "src/main.js",
+    "sha256": "50cb9f18b1c7115799ae456f0d0038840278b49ea520b5549d468ec76c248fb9"
+  },
+  {
+    "component": "finassist-web",
+    "file": "vite.config.js",
+    "sha256": "dba74b913d2cb446fc7b70498f99601bc7e5367ffac648349d9ef02d1931d662"
+  },
+  {
+    "component": "finassist-business",
+    "file": ".env.example",
+    "sha256": "6ef80d3fc6b6d2797955ff824fda41a5d8447a35f1c4abcab336a80121bc1649"
+  },
+  {
+    "component": "finassist-business",
+    "file": "app/__init__.py",
+    "sha256": "62bc5b6c30e46337ad4d6ae038d483bcff62c5c24fca80624901b1282025ef82"
+  },
+  {
+    "component": "finassist-business",
+    "file": "app/api.py",
+    "sha256": "4c4274fdc0b4bd6e3c3684c16e5468f01e2010ee74d8e2e0a9c1b0e36737d0b9"
+  },
+  {
+    "component": "finassist-business",
+    "file": "app/app.py",
+    "sha256": "c9ca20cf23a0215c4397c28f172d17cfd83b736826cbff549ba27b45201b9a7b"
+  },
+  {
+    "component": "finassist-business",
+    "file": "app/config.py",
+    "sha256": "78029af50bcb9cb51f1311a152aef8210fbe009bf5b4e68805a36da3848d3367"
+  },
+  {
+    "component": "finassist-business",
+    "file": "app/database.py",
+    "sha256": "7a1d6a67a44149000cecc6526cdd14b3eb6ebe11ccc33d515091f363d99cd8ed"
+  },
+  {
+    "component": "finassist-business",
+    "file": "app/models.py",
+    "sha256": "34b22dab549e5422171fc0c28f4e45c4299dd86776a9c07455b275e4e557e412"
+  },
+  {
+    "component": "finassist-business",
+    "file": "app/schemas.py",
+    "sha256": "cacb3c0e9cba97609ec7745dcfb894703941cd142789db25219192c3b18e9b65"
+  },
+  {
+    "component": "finassist-business",
+    "file": "main.py",
+    "sha256": "9f32de610e1bd13b710ae41fa4d0b2fd9fd4c180014a882c0108d89700893930"
+  },
+  {
+    "component": "finassist-business",
+    "file": "pyproject.toml",
+    "sha256": "47f6917db956bb8e97d4f16a4e36fda9a913d41ec4179b95c85bcaaa7d319b1b"
+  },
+  {
+    "component": "finassist-business",
+    "file": "README.md",
+    "sha256": "66c550d9f114e09257d276ecf9764d82bdbe13c82ad2977d6689431b52d82ab5"
+  },
+  {
+    "component": "finassist-business",
+    "file": "uv.lock",
+    "sha256": "c1a117aa094c5b12910cfb92d4d41e80a28b75d0845ab9d39a9ac787b868d394"
+  }
+]

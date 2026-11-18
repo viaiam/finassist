@@ -1,0 +1,206 @@
+slots:
+  account_no:
+    type: text
+    label: 账户号
+    description: 用户提供的完整账户号或银行卡号，可点击账户卡片选择
+  transaction_date:
+    type: text
+    label: 交易日期
+    description: YYYY-MM-DD 或“最近”，必须明确询问，不能猜测
+  loan_no:
+    type: text
+    label: 贷款编号
+    description: 用户提供或贷款卡片携带的 loan_no，不能使用产品代码
+  finance_result:
+    type: text
+    label: 查询结果
+    description: 仅由金融业务动作写入，禁止模型设置
+  ticket_type:
+    type: text
+    label: 投诉类型
+    description: 从用户本轮描述归纳为账户服务、交易问题、贷款服务、银行卡服务或其他
+  related_transaction_no:
+    type: text
+    label: 关联交易流水号
+    description: 用户提供的交易流水号；明确回答无、不涉及时照录
+  ticket_description:
+    type: text
+    label: 投诉描述
+    description: 用户说明的具体问题，不得包含密码、验证码等敏感凭证
+  ticket_result:
+    type: text
+    label: 工单结果
+    description: 仅由金融工单动作写入，禁止模型设置
+  ticket_no:
+    type: text
+    label: 工单编号
+    description: 用户提供的投诉工单编号
+flows:
+  account_balance:
+    name: 账户余额查询
+    description: 查询账户余额、可用余额和冻结金额
+    steps:
+    - id: start
+      type: start
+      next: ask_account_no
+    - id: ask_account_no
+      type: collect
+      slot_name: account_no
+      template:
+        text: 请提供账户号，或点击右侧账户卡片。
+      next: query
+    - id: query
+      type: action
+      action: action_account_balance
+      next: result
+    - id: result
+      type: response
+      template:
+        text: '{{ slots.finance_result }}'
+      next: end
+    - id: end
+      type: end
+      next: []
+  transaction_query:
+    name: 交易流水查询
+    description: 按账户与日期查询交易、转账记录
+    steps:
+    - id: start
+      type: start
+      next: ask_account_no
+    - id: ask_account_no
+      type: collect
+      slot_name: account_no
+      template:
+        text: 请提供要查询的账户号，或点击账户卡片。
+      next: ask_transaction_date
+    - id: ask_transaction_date
+      type: collect
+      slot_name: transaction_date
+      template:
+        text: 请输入查询日期（YYYY-MM-DD），或回复“最近”查询最近 20 条记录。
+      next: query
+    - id: query
+      type: action
+      action: action_transactions
+      next: result
+    - id: result
+      type: response
+      template:
+        text: '{{ slots.finance_result }}'
+      next: end
+    - id: end
+      type: end
+      next: []
+  loan_status:
+    name: 贷款状态查询
+    description: 查询个人贷款合同状态、利率、本金和未还本金
+    steps:
+    - id: start
+      type: start
+      next: ask_loan_no
+    - id: ask_loan_no
+      type: collect
+      slot_name: loan_no
+      template:
+        text: 请提供贷款编号，或点击右侧贷款卡片。
+      next: query
+    - id: query
+      type: action
+      action: action_loan_status
+      next: result
+    - id: result
+      type: response
+      template:
+        text: '{{ slots.finance_result }}'
+      next: end
+    - id: end
+      type: end
+      next: []
+  repayment_query:
+    name: 还款计划查询
+    description: 查询个人贷款最新版本的还款计划、各期应还金额与状态
+    steps:
+    - id: start
+      type: start
+      next: ask_loan_no
+    - id: ask_loan_no
+      type: collect
+      slot_name: loan_no
+      template:
+        text: 请提供贷款编号，或点击右侧贷款卡片。
+      next: query
+    - id: query
+      type: action
+      action: action_repayments
+      next: result
+    - id: result
+      type: response
+      template:
+        text: '{{ slots.finance_result }}'
+      next: end
+    - id: end
+      type: end
+      next: []
+  complaint_ticket:
+    name: 金融业务投诉
+    description: 收集投诉类型、可选关联流水和问题描述，提交客服工单
+    steps:
+    - id: start
+      type: start
+      next: ask_ticket_type
+    - id: ask_ticket_type
+      type: collect
+      slot_name: ticket_type
+      template:
+        text: 请问您要投诉哪类问题：账户服务、交易问题、贷款服务、银行卡服务，还是其他？
+      next: ask_related_transaction
+    - id: ask_related_transaction
+      type: collect
+      slot_name: related_transaction_no
+      template:
+        text: 如涉及某笔交易，请提供交易流水号；不涉及请回复“无”。
+      next: ask_ticket_description
+    - id: ask_ticket_description
+      type: collect
+      slot_name: ticket_description
+      template:
+        text: 请描述具体问题和希望我们协助的内容。请勿提供密码或短信验证码。
+      next: submit_ticket
+    - id: submit_ticket
+      type: action
+      action: action_complaint_ticket
+      next: ticket_result
+    - id: ticket_result
+      type: response
+      template:
+        text: '{{ slots.ticket_result }}'
+      next: end
+    - id: end
+      type: end
+      next: []
+  ticket_status_query:
+    name: 投诉工单状态查询
+    description: 查询当前客户投诉工单的受理和处理进度
+    steps:
+    - id: start
+      type: start
+      next: ask_ticket_no
+    - id: ask_ticket_no
+      type: collect
+      slot_name: ticket_no
+      template:
+        text: 请提供投诉工单编号，例如 TKT20261118123456789000。
+      next: query
+    - id: query
+      type: action
+      action: action_ticket_status
+      next: result
+    - id: result
+      type: response
+      template:
+        text: '{{ slots.ticket_result }}'
+      next: end
+    - id: end
+      type: end
+      next: []

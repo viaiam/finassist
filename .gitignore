@@ -1,0 +1,13 @@
+# 本机配置、密钥、依赖和编译产物不进入版本库。
+.env
+.env.*
+!.env.example
+.venv/
+.idea/
+__pycache__/
+*.py[cod]
+node_modules/
+dist/
+.pytest_cache/
+.ruff_cache/
+*.log
