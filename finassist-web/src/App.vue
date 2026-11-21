@@ -10,6 +10,8 @@ const isLoadingSidebar = ref(false)
 const errorMessage = ref('')
 const sidebarError = ref('')
 const sessionStatus = ref(null)
+const sessions = ref([])
+const selectedSessionId = ref('')
 const activeTab = ref('account')
 const objects = ref({ accounts: [], loans: [], cards: [], transactions: [] })
 const products = ref({ loan: [], wealth: [] })
@@ -18,6 +20,11 @@ const flowNames = {
   account_balance: '账户余额查询', transaction_query: '交易流水查询', loan_status: '贷款状态查询',
   repayment_query: '还款计划查询', complaint_ticket: '投诉提交', ticket_status_query: '工单状态查询',
 }
+const viewingCurrentSession = computed(() => {
+  const currentSessionId = sessionStatus.value?.session?.session_id
+  // 尚未创建会话时允许首次咨询；选中历史会话后则进入只读状态。
+  return !currentSessionId || selectedSessionId.value === currentSessionId
+})
 
 // 两个后端仍通过原 Vite 代理访问；统一处理非 JSON 错误，避免显示解析异常。
 async function request(url, options) {
@@ -55,6 +62,10 @@ function appendMessage(role, message) {
   messages.value.push({ id: crypto.randomUUID(), role, ...message })
 }
 
+function formatSessionTime(timestamp) {
+  return timestamp ? new Date(timestamp * 1000).toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) : ''
+}
+
 async function fetchSidebarData() {
   const customer = senderId.value.trim()
   if (!customer) return
@@ -76,7 +87,25 @@ async function fetchSessionStatus() {
   if (!customer) return
   try {
     const data = await request(`/api/chat/status?sender_id=${encodeURIComponent(customer)}`)
-    if (senderId.value.trim() === customer) sessionStatus.value = data
+    if (senderId.value.trim() === customer) {
+      sessionStatus.value = data
+      selectedSessionId.value = data.session?.session_id || ''
+    }
+  } catch (error) {
+    if (senderId.value.trim() === customer) errorMessage.value = error.message
+  }
+}
+
+async function fetchSessions(selectCurrent = true) {
+  const customer = senderId.value.trim()
+  if (!customer) return
+  try {
+    const data = await request(`/api/chat/sessions?sender_id=${encodeURIComponent(customer)}`)
+    if (senderId.value.trim() !== customer) return
+    sessions.value = data.sessions
+    if (selectCurrent && sessionStatus.value?.session?.session_id) {
+      selectedSessionId.value = sessionStatus.value.session.session_id
+    }
   } catch (error) {
     if (senderId.value.trim() === customer) errorMessage.value = error.message
   }
@@ -93,6 +122,7 @@ async function startNewSession() {
     messages.value = []
     errorMessage.value = ''
     await fetchSessionStatus()
+    await fetchSessions()
   } catch (error) { errorMessage.value = error.message }
 }
 
@@ -102,6 +132,7 @@ async function fetchChatHistory() {
   try {
     const status = await request(`/api/chat/status?sender_id=${encodeURIComponent(customer)}`)
     const sessionId = status.session?.session_id
+    selectedSessionId.value = sessionId || ''
     if (!sessionId) {
       if (senderId.value.trim() === customer) messages.value = []
       return
@@ -113,8 +144,20 @@ async function fetchChatHistory() {
   }
 }
 
+async function selectSession(sessionId) {
+  const customer = senderId.value.trim()
+  if (!customer || !sessionId || isSending.value) return
+  try {
+    const data = await request(`/api/chat/history?sender_id=${encodeURIComponent(customer)}&session_id=${encodeURIComponent(sessionId)}`)
+    if (senderId.value.trim() === customer) {
+      selectedSessionId.value = sessionId
+      messages.value = data.messages.map(message => ({ id: crypto.randomUUID(), ...message }))
+    }
+  } catch (error) { errorMessage.value = error.message }
+}
+
 async function sendPayload(payload) {
-  if (isSending.value || !senderId.value.trim()) return
+  if (isSending.value || !senderId.value.trim() || !viewingCurrentSession.value) return
   const customer = senderId.value.trim()
   errorMessage.value = ''
   isSending.value = true
@@ -126,6 +169,7 @@ async function sendPayload(payload) {
     })
     if (senderId.value.trim() === customer) for (const message of data.messages) appendMessage('bot', message)
     await fetchSessionStatus()
+    await fetchSessions(false)
   } catch (error) { errorMessage.value = error.message }
   finally { isSending.value = false }
 }
@@ -151,7 +195,11 @@ watch(senderId, async () => {
   errorMessage.value = ''
   objects.value = { accounts: [], loans: [], cards: [], transactions: [] }
   sessionStatus.value = null
-  await Promise.all([fetchSidebarData(), fetchChatHistory(), fetchSessionStatus()])
+  sessions.value = []
+  selectedSessionId.value = ''
+  await Promise.all([fetchSidebarData(), fetchSessionStatus()])
+  await fetchSessions()
+  await fetchChatHistory()
 })
 
 onMounted(async () => {
@@ -174,7 +222,14 @@ onMounted(async () => {
       <div class="chat-card">
         <header class="chat-header">
           <div><h1>融知 FinAssist · 金融客服</h1><p v-if="sessionStatus?.resume_hint" class="resume-hint">{{ sessionStatus.resume_hint }}</p></div>
-          <button class="secondary-button" :disabled="isSending || !senderId" @click="startNewSession">新建会话</button>
+          <div class="header-actions">
+            <select v-model="selectedSessionId" class="session-select" aria-label="历史会话" :disabled="isSending || !sessions.length" @change="selectSession(selectedSessionId)">
+              <option v-for="session in sessions" :key="session.session_id" :value="session.session_id">
+                {{ session.preview || '空会话' }} · {{ session.message_count }}条 · {{ formatSessionTime(session.last_activity_at) }}
+              </option>
+            </select>
+            <button class="secondary-button" :disabled="isSending || !senderId" @click="startNewSession">新建会话</button>
+          </div>
         </header>
         <section class="controls">
           <label class="field">
@@ -188,7 +243,7 @@ onMounted(async () => {
           </label>
         </section>
         <section v-if="sessionStatus" class="session-status" aria-live="polite">
-          <span>当前会话：{{ sessionStatus.session ? sessionStatus.session.session_id.slice(0, 8) : '未开始' }}</span>
+          <span>{{ viewingCurrentSession ? '当前会话' : '历史会话（只读）' }}：{{ selectedSessionId ? selectedSessionId.slice(0, 8) : '未开始' }}</span>
           <span v-if="sessionStatus.active_task">进行中：{{ flowNames[sessionStatus.active_task.flow_id] || sessionStatus.active_task.flow_id }}（{{ sessionStatus.active_task.step_id }}）</span>
           <span v-if="sessionStatus.paused_tasks.length">已暂停 {{ sessionStatus.paused_tasks.length }} 项</span>
         </section>
@@ -210,8 +265,8 @@ onMounted(async () => {
         </section>
         <p v-if="errorMessage" class="error-message" role="alert">{{ errorMessage }}</p>
         <form class="composer" @submit.prevent="sendTextMessage">
-          <input v-model="draftMessage" aria-label="金融咨询内容" placeholder="请输入金融咨询内容…" :disabled="isSending || !senderId" />
-          <button type="submit" :disabled="isSending || !senderId || !draftMessage.trim()">{{ isSending ? '查询中…' : '发送' }}</button>
+          <input v-model="draftMessage" aria-label="金融咨询内容" :placeholder="viewingCurrentSession ? '请输入金融咨询内容…' : '历史会话为只读，请切回当前会话继续咨询'" :disabled="isSending || !senderId || !viewingCurrentSession" />
+          <button type="submit" :disabled="isSending || !senderId || !viewingCurrentSession || !draftMessage.trim()">{{ isSending ? '查询中…' : '发送' }}</button>
         </form>
       </div>
       <aside class="sidebar">
@@ -298,6 +353,22 @@ onMounted(async () => {
   display: flex;
   justify-content: space-between;
   gap: 20px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.session-select {
+  max-width: 340px;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  border-radius: 12px;
+  background: #fff;
+  color: #142033;
 }
 
 .chat-header h1,
@@ -646,6 +717,15 @@ onMounted(async () => {
 
   .chat-header {
     flex-direction: column;
+  }
+
+  .header-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .session-select {
+    max-width: 100%;
   }
 
   .sidebar {

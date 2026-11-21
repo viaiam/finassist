@@ -92,10 +92,11 @@ class ChitchatTurnPlan:
 # ==========================================================================
 @dataclass
 class TurnPlan:
-    """三个分支最多只有一个非 None（互斥），由提示词约束 + validator 兜底。"""
+    """安全标记优先于三个互斥业务分支，恶意意图不进入业务分流。"""
     task: TaskTurnPlan | None = None
     knowledge: KnowledgeTurnPlan | None = None
     chitchat: ChitchatTurnPlan | None = None
+    malicious_intent: bool = False
 
     @classmethod
     def from_dict(cls, plan_data: dict) -> "TurnPlan":
@@ -113,7 +114,9 @@ class TurnPlan:
                          if plan_data['knowledge'] is not None else None,
 
             chitchat=ChitchatTurnPlan()
-                       if plan_data['chitchat'] is not None else None
+                       if plan_data['chitchat'] is not None else None,
+            # 兼容未返回该字段的模型结果，缺省按普通意图处理。
+            malicious_intent=plan_data.get('malicious_intent', False) is True,
         )
 
 

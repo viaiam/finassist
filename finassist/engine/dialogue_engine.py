@@ -72,6 +72,11 @@ from finassist.task.task_handler import TaskHandler
 
 class DialogueEngine:
 
+    MALICIOUS_INTENT_RESPONSE = (
+        '我不能协助伤害他人或策划暴力行为。请远离可能造成伤害的物品，'
+        '并立即联系当地紧急服务或可信任的人。'
+    )
+
     def __init__(self,
                  turn_planner: TurnPlanner,
                  turn_plan_validator: TurnPlanValidator,
@@ -150,6 +155,10 @@ class DialogueEngine:
             user_message=user_message,
             flow_catalog=self.flow_catalog,
         )
+
+        # 安全分类命中时直接拒绝，确保不会继续查询金融数据或执行任务。
+        if turn_plan.malicious_intent:
+            return [BotMessage(text=self.MALICIOUS_INTENT_RESPONSE)]
 
         # 2 校验
         validation: TurnPlanValidationResult = self.turn_plan_validator.validate(

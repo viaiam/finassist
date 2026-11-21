@@ -8,12 +8,17 @@ $projectRoot = Split-Path -Parent $PSScriptRoot
 Push-Location $projectRoot
 try {
     switch ($Service) {
-        'server' { uv run --locked python -m finassist.main }
+        'server' {
+            $Host.UI.RawUI.WindowTitle = 'FinAssist 金融客服服务'
+            uv run --locked python -m finassist.main
+        }
         'business' {
+            $Host.UI.RawUI.WindowTitle = 'FinAssist 金融业务中台'
             Set-Location (Join-Path $projectRoot 'finassist-business')
             uv run --locked uvicorn app.app:app --env-file .env --host 127.0.0.1 --port 18081
         }
         'web' {
+            $Host.UI.RawUI.WindowTitle = 'FinAssist 客服前端'
             Set-Location (Join-Path $projectRoot 'finassist-web')
             npm run dev
         }

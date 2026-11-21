@@ -148,6 +148,32 @@ async def create_chat_session(request: NewSessionRequest,
             'started_at': session.started_at}
 
 
+@chat_router.get('/api/chat/sessions')
+async def list_chat_sessions(sender_id: str,
+        repository: DialogueRepository = Depends(get_repository)):
+    """按最近活跃时间倒序返回会话摘要，供前端浏览历史会话。"""
+    state = await repository.load_state(sender_id)
+    sessions = []
+    for _, session in sorted(
+            enumerate(state.shared.sessions),
+            key=lambda pair: (pair[1].last_activity_at, pair[0]),
+            reverse=True):
+        message_count = sum(1 + len(turn.bot_message) for turn in session.turns)
+        first_turn = session.turns[0] if session.turns else None
+        preview = (first_turn.user_message.text or
+                   (first_turn.user_message.object.title
+                    if first_turn.user_message.object else None)) if first_turn else None
+        sessions.append({
+            'session_id': session.session_id,
+            'started_at': session.started_at,
+            'last_activity_at': session.last_activity_at,
+            'message_count': message_count,
+            'preview': preview,
+            'has_messages': bool(session.turns),
+        })
+    return {'sender_id': sender_id, 'sessions': sessions}
+
+
 def _build_chat_object(obj:MessageObject | None)->ChatObject | None:
     """domain 层 MessageObject --> api 层 ChatObject"""
     return ChatObject(**asdict(obj)) if obj else None

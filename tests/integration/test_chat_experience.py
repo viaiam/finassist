@@ -73,3 +73,22 @@ class ChatExperienceTests(unittest.TestCase):
             'sender_id': 'experience-user', 'session_id': current_session.session_id})
         self.assertEqual(response.status_code, 200)
         self.assertEqual([message['text'] for message in response.json()['messages']], ['新会话', '新回复'])
+
+    def test_session_list_includes_preview_and_message_count(self):
+        self.repository.state.shared.create_session()
+        old_session = self.repository.state.shared.sessions[-1]
+        old_session.turns.append(Turn('old-turn', UserMessage(
+            'experience-user', 'old-message', MessageType.TEXT, text='查询账户余额'),
+            [BotMessage(text='账户余额如下')]))
+        self.repository.state.shared.create_session()
+        current_session = self.repository.state.shared.sessions[-1]
+
+        response = self.client.get('/api/chat/sessions', params={'sender_id': 'experience-user'})
+
+        self.assertEqual(response.status_code, 200)
+        sessions = response.json()['sessions']
+        self.assertEqual([item['session_id'] for item in sessions], [
+            current_session.session_id, old_session.session_id])
+        self.assertEqual(sessions[1]['message_count'], 2)
+        self.assertEqual(sessions[1]['preview'], '查询账户余额')
+        self.assertFalse(sessions[0]['has_messages'])
